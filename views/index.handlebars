@@ -1,0 +1,10 @@
+
+
+{{#each bgName}}
+    <h1>{{@index}}{{this}}</h1>
+{{/each}}
+
+<form action="/api/add" method="POST">
+    <input  name="burger">
+    <button type="submit">Submit</button>
+</form>

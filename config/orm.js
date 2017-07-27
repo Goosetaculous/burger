@@ -8,38 +8,34 @@ function printQuestionMarks(num){
     return arr
 }
 
-function executeSQL(sql){
-    connection.query(sql,(err,result)=>{
-        if(err){
-            throw err;
-        }
-        return result
-    })
-}
-
 var orm = {
     selectAll: (tableInput, cb)=>{
-        var queryString = `SELECT * FROM ${tableInput};`
-        // connection.query(queryString, (err,result)=>{
-        //     if(err){
-        //         throw err
-        //     }
-        //     cb(result)
-        // })
-        cb(executeSQL(queryString))
+        var queryString = `SELECT * FROM ${tableInput} WHERE devoured = 0;`
+        connection.query(queryString, (err,result)=>{
+            if(err){
+                throw err
+            }
+            cb(result)
+        })
     },
     //vals =  array
     insertOne: (table,col,vals,cb)=>{
         var queryString = `INSERT INTO ${table} (${col}) VALUES(${printQuestionMarks(vals.length)})`
-        console.log(`INSERT STRING ${queryString}`)
-        cb(executeSQL(queryString))
-
-
+        connection.query(queryString,vals, (err,result)=>{
+            if(err){
+                throw err
+            }
+            cb(result)
+        })
     },
     updateOne: (table, col,val,conditionCol,conditionVal,cb)=>{
         var queryString = `UPADATE  ${table} SET ${col} = ${val} WHERE ${conditionCol} =  ${conditionVal} `
-        console.log(`UPDATE STRING ${queryString}`)
-        cb(executeSQL(queryString))
+        connection.query(queryString,conditionVal, (err,result)=>{
+            if(err){
+                throw err
+            }
+            cb(result)
+        })
 
     }
 }

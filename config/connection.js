@@ -12,8 +12,7 @@ connection.connect( (err)=>{
     if(err){
         console.log("Error connecting: "+ err.stack)
     }else {
-        console.log("Connected as id ")
+        console.log("Connected!")
     }
 })
-
 module.exports = connection
