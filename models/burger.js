@@ -12,10 +12,10 @@ var burgers= {
             cb(res)
         })
     },
-    update: (col,val,condCol,condVal)=>{
-        orm.updateOne(table,col,val,condCol,condVal,(res=>{
+    update: (col,val,condCol,condVal,cb)=>{
+        orm.updateOne(table,col,val,condCol,condVal,(res)=>{
             cb(res)
-        }))
+        })
     }
 }
 module.exports=burgers

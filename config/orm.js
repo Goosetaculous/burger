@@ -7,10 +7,9 @@ function printQuestionMarks(num){
     }
     return arr
 }
-
 var orm = {
     selectAll: (tableInput, cb)=>{
-        var queryString = `SELECT * FROM ${tableInput} WHERE devoured = 0;`
+        var queryString = `SELECT * FROM ${tableInput};`
         connection.query(queryString, (err,result)=>{
             if(err){
                 throw err
@@ -28,15 +27,14 @@ var orm = {
             cb(result)
         })
     },
-    updateOne: (table, col,val,conditionCol,conditionVal,cb)=>{
-        var queryString = `UPADATE  ${table} SET ${col} = ${val} WHERE ${conditionCol} =  ${conditionVal} `
-        connection.query(queryString,conditionVal, (err,result)=>{
+    updateOne: (table, col, val ,conditionCol ,conditionVal ,cb)=>{
+        var queryString = `UPDATE ${table} SET ${col} = ${val} WHERE ${conditionCol} =  ${conditionVal}`
+        connection.query(queryString, (err,result)=>{
             if(err){
                 throw err
             }
             cb(result)
         })
-
     }
 }
 module.exports =  orm

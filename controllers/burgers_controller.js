@@ -3,28 +3,13 @@ var burger = require("../models/burger")
 var router =  express.Router()
 
 
-
-
 router.get("/",(req,res)=>{
     burger.all((data)=>{
-        let arr = []
-        data.forEach((burger)=>{
-            arr.push(burger.burger_name)
-        })
-        console.log(arr)
-        if(data.length >0){
-            var obj ={
-                bgName :  arr
-            }
-            res.render("index",obj);
-
-        }else{
-            res.render("index");
+        var hbsObject = {
+            burgers: data
         }
-
+        res.render("index",hbsObject)
     })
-
-
 })
 
 router.post("/api/add",(req,res)=>{
@@ -33,7 +18,16 @@ router.post("/api/add",(req,res)=>{
     ,()=>{
         res.redirect("/")
     })
-
-
 })
+
+router.put("/api/:id",(req,res)=>{
+    let col =  Object.keys(req.body)[0]
+    let val = req.body[col]
+    burger.update(
+        col,val,"id",req.params.id
+        ,()=>{
+            res.redirect("/")
+        })
+})
+
 module.exports = router;
